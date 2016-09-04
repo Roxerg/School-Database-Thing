@@ -50,22 +50,71 @@ if (isset($_POST['submit']))
 	   $adresas = trim($_POST['adresas']);
 	}
 	
+	if (empty($_POST['klase']))
+	{
+	   $data_missing[] = 'klase';
+	}
+	else 
+	{
+	   $klase = trim($_POST['klase']);
+	}
+	
+	if (empty($_POST['1uzskalb']))
+	{
+	   $oneuzskalb = ' ';
+	}
+	else
+	{
+		$oneuzskalb = trim($_POST['1uzskalb']);
+	}		
+	
+	if (empty($_POST['2uzskalb']))
+	{
+	   $twouzskalb = ' ';
+	}
+	else
+	{
+		$twouzskalb = trim($_POST['2uzskalb']);
+	}		
+	
+	if (empty($_POST['etika']))
+	{
+	   $etika = ' ';
+	}
+	else
+	{
+		$etika = trim($_POST['etika']);
+	}		
+	
+	if (empty($_POST['tikyba']))
+	{
+	   $tikyba = ' ';
+	}
+	else
+	{
+		$tikyba = trim($_POST['tikyba']);
+	}		
+	
 	if(empty($data_missing))
 	{
 	   require_once('../mysqli_connect.php');
 	   
-	   $query = "INSERT INTO mokinys (vardas, pavarde, asmens_kodas, gimimo_data, adresas) VALUES (?, ?, ?, ?, ?)";
+	   $query = "INSERT INTO mokiniai
+	   (vardas, pavarde, asmens_kodas, gimimo_data, adresas, klase, 1uzskalb, 2uzskalb, tikyba, etika) 
+	   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	   $stmt = mysqli_prepare($dbc, $query);
 	   
-	   mysqli_stmt_bind_param($stmt, "sssss", $vard, $pav, $asmkod, $gimdat,  $adresas);
+	   mysqli_stmt_bind_param($stmt, "ssssssssss", $vard, $pav, $asmkod, $gimdat,  $adresas, $klase, $oneuzskalb, $twouzskalb, $tikyba, $etika);
 	   
 	   mysqli_stmt_execute($stmt);
+	   
+	   
 	   
 	   $affected_rows = mysqli_stmt_affected_rows($stmt);
 	   
 	   if($affected_rows == 1)
 	   {
-	      echo 'Mokinys įvestas';
+	      echo 'mokinys įvestas';
 		  mysqli_stmt_close($stmt);
 		  mysqli_close($dbc);
 	   }
@@ -113,6 +162,22 @@ if (isset($_POST['submit']))
 
 <p>Adresas:
 <input type="text" name="adresas" size="30" value="" />
+</p>
+
+<p>1-oji užsienio kalba:
+<input type="text" name="1uzskalb" size="30" value="" />
+</p>
+
+<p>2-oji užsienio kalba:
+<input type="text" name="2uzskalb" size="30" value="" />
+</p>
+
+<p>Tikyba:
+<input type="text" name="tikyba" size="30" value="" />
+</p>
+
+<p>Etika:
+<input type="text" name="etika" size="30" value="" />
 </p>
 
 <p>

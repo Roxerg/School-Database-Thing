@@ -27,9 +27,42 @@
 <input type="text" name="adresas" size="30" value="" />
 </p>
 
+<p> Klasė:
+<select name = "klase">
+<?php
+require_once('../mysqli_connect.php');
+$getclasses = mysqli_query($dbc, "SELECT * FROM klases");
+
+while ($row = mysqli_fetch_array($getclasses))
+{
+	?><option value = "<?php echo $row['klase']; ?>">
+	<?php echo $row['klase'];  ?></option><?php
+}  ?>
+</p></select>
+
+
+<p>1-oji užsienio kalba:
+<input type="text" name="1uzskalb" size="30" value="" />
+</p>
+
+<p>2-oji užsienio kalba:
+<input type="text" name="2uzskalb" size="30" value="" />
+</p>
+
+<p>Tikyba:
+<input type="text" name="tikyba" size="30" value="" />
+</p>
+
+<p>Etika:
+<input type="text" name="etika" size="30" value="" />
+</p>
+
 <p>
 <input type="submit" name = "submit" value ="Pridėti" />
 </p></form>
+
+
+
 
 <form action = "http://localhost:1234/mokinfo.php">
 <input type="submit" value = "Pilnas sąrašas"/>
