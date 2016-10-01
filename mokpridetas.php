@@ -3,7 +3,8 @@
 <title>Pridėti mokinį</title>
 </head>
 <body>
-
+<fieldset>
+ <legend><b> Pridėti naują mokinį</b></legend>
 <?php
 
 if (isset($_POST['submit']))
@@ -115,25 +116,25 @@ if (isset($_POST['submit']))
 	   if($affected_rows == 1)
 	   {
 	      echo 'mokinys įvestas';
-		  mysqli_stmt_close($stmt);
-		  mysqli_close($dbc);
+		  #mysqli_stmt_close($stmt);
+		  #mysqli_close($dbc);
 	   }
 	   else 
 	   {
 	      echo 'Įvyko klaida<br>';
 		  echo mysqli_error();
-		  mysqli_stmt_close($stmt);
-		  mysqli_close($dbc);
+		  #mysqli_stmt_close($stmt);
+		  #mysqli_close($dbc);
 		  
 	   }
 	}
 	else
 	{
-		echo 'Įveskite trūkstamą informaciją:<br>';
+		echo '<b>Įveskite trūkstamą informaciją:</b><br>';
 		
 		foreach($data_missing as $missing)
 		{
-			echo "$missing<br>";
+			echo "* $missing<br>";
 		}
 	}
 
@@ -141,8 +142,8 @@ if (isset($_POST['submit']))
 
 ?>
 
+ 
 <form action ="http://localhost:1234/mokpridetas.php" method = "post">
-<b> Pridėti naują mokinį</b>
 
 <p>Vardas:
 <input type="text" name="vardas" size="30" value="" />
@@ -164,6 +165,20 @@ if (isset($_POST['submit']))
 <input type="text" name="adresas" size="30" value="" />
 </p>
 
+<p> Klasė:
+<select name = "klase">
+<?php
+require_once('../mysqli_connect.php');
+$getclasses = mysqli_query($dbc, "SELECT * FROM klases");
+
+while ($row = mysqli_fetch_array($getclasses))
+{
+	?><option value = "<?php echo $row['klase']; ?>">
+	<?php echo $row['klase'];  ?></option><?php
+}  ?>
+</p></select>
+
+
 <p>1-oji užsienio kalba:
 <input type="text" name="1uzskalb" size="30" value="" />
 </p>
@@ -184,8 +199,12 @@ if (isset($_POST['submit']))
 <input type="submit" name = "submit" value ="Pridėti" />
 </p></form>
 
-<form action = "http://localhost:1234/mokinfo.php">
-<input type="submit" value = "Pilnas sąrašas"/>
+
+
+
+<form action = "http://localhost:1234/adminpage.php">
+<input type="submit" value = "Grįžti"/>
 </form>
+</fieldset>
 </body>
 </html>

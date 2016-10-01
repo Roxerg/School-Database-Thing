@@ -2,18 +2,40 @@
 <head>
 <style>
 div#frm *{display:inline}
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 7px;
+}
+body 
+{
+	background: linear-gradient(to bottom right, #E3E3E3,#6C6C6C);
+}
 </style>
 </head>
 <body>
 </br>
 
 
+<?php $klase = $_COOKIE["klase"]; ?>
+
+<button onclick="goBack()">Grįžti</button>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+</br>
+</br>
 <fieldset>
- <legend>Vidurkiai</legend>
-
-<div id="frm">
-
+ <legend><b><?php echo $klase . " "; ?> Vidurkiai</b></legend>
 <form action = "http://localhost:1234/pridetivid.php">
+<input type = "submit" value = "Įrašyti vidurkius" style ="margin-right:20px";/>
+</form>
+
+<!-- <form action = "http://localhost:1234/pridetivid.php">
 <input type="submit" value = "Įrašyti vidurkius" style = "margin-right:20px";/>
 </form>
 
@@ -23,23 +45,25 @@ div#frm *{display:inline}
 
 <form action = "http://localhost:1234/mokinfo.php">
 <input type="submit" value = "Pilnas sąrašas" />
-</form>
+</form> -->
 
 
 
 
 
 
-</div>
+
 
 <?php
+
+
 
 require_once('../mysqli_connect.php');
 $response = mysqli_query($dbc, "SELECT mokiniai.vardas, mokiniai.pavarde, vidurkiai.Lietuviu_k, 
 vidurkiai.1_uzs_k, vidurkiai.2_uzs_k, vidurkiai.Istorija, vidurkiai.Geografija, vidurkiai.Matematika, 
 vidurkiai.IT, vidurkiai.Biologija, vidurkiai.Chemija, vidurkiai.Fizika 
-FROM mokiniai 
-JOIN vidurkiai ON mokiniai.mok_id = vidurkiai.mok_id"); 
+FROM mokiniai
+JOIN vidurkiai ON mokiniai.mok_id = vidurkiai.mok_id WHERE mokiniai.klase ='" .$klase. "'"); 
 
 // <td align = "left"><b>mok_id</b></td>
 // <td align = "justify"><b>Vidurkis</b></td>
@@ -60,7 +84,7 @@ if($response)
 	<td align = "justify"><b>Fizika</b></td>
 	<td align = "justify"><b>Geografija</b></td>
 	<td align = "justify"><b>Istorija</b></td>
-	<td align = "justify"><b>&#160; &#160; &#160; IT</b></td>
+	<td align = "justify"><b>IT</b></td>
 	<td align = "justify"><b>Lietuviu k.</b></td>
 	<td align = "justify"><b>Matematika</b></td>
 	
@@ -71,18 +95,18 @@ if($response)
 	 while ($row = mysqli_fetch_array($response))
 	 {
 		 echo '<tr><td align = "left">'.
-		 $row['vardas']  .  '</td> <td align = "left">' .
-		 $row['pavarde'] .  '</td> <td align = "right">' .
-		 $row['1_uzs_k'] . '</td> <td align = "right">' .
-		 $row['2_uzs_k'] . '</td> <td align = "right">' .
-		 $row['Biologija'] . '</td> <td align = "right">' .
-		 $row['Chemija'] . '</td> <td align = "right">' .
-		 $row['Fizika'] . '</td> <td align = "right">' .
-		 $row['Geografija'] . '</td> <td align = "right">' .
-		 $row['Istorija'] . '</td> <td align = "right">' .
-		 $row['IT'] . '</td> <td align = "right">' .
-		 $row['Lietuviu_k'] . '</td> <td align = "right">' .
-		 $row['Matematika'] . '</td> <td align = "right">' ;
+		 $row['vardas']  .  '</td> <td align = "center">' .
+		 $row['pavarde'] .  '</td> <td align = "center">' .
+		 $row['1_uzs_k'] . '</td> <td align = "center">' .
+		 $row['2_uzs_k'] . '</td> <td align = "center">' .
+		 $row['Biologija'] . '</td> <td align = "center">' .
+		 $row['Chemija'] . '</td> <td align = "center">' .
+		 $row['Fizika'] . '</td> <td align = "center">' .
+		 $row['Geografija'] . '</td> <td align = "center">' .
+		 $row['Istorija'] . '</td> <td align = "center">' .
+		 $row['IT'] . '</td> <td align = "center">' .
+		 $row['Lietuviu_k'] . '</td> <td align = "center">' .
+		 $row['Matematika'] . '</td>' ;
 		  
 		 
 		 echo '<tr>';

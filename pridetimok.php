@@ -4,8 +4,28 @@
 </head>
 <body>
 
+<fieldset>
+ <legend><b> Pridėti naują mokinį</b></legend>
 <form action ="http://localhost:1234/mokpridetas.php" method = "post">
-<b> Pridėti naują mokinį</b>
+
+<p> Klasė:
+<select name = "klase">
+<?php
+require_once('../mysqli_connect.php');
+if (strcmp ($_COOKIE["klase"], "admin") == 0)
+{
+$getclasses = mysqli_query($dbc, "SELECT * FROM klases");
+while ($row = mysqli_fetch_array($getclasses))
+{
+	?><option value = "<?php echo $row['klase']; ?>">
+	<?php echo $row['klase'];  ?></option><?php
+}}
+else 
+{ ?>
+<option value = "<?php echo $_COOKIE["klase"]; ?>"><?php echo $_COOKIE["klase"]; ?></option>
+<?php } 
+?>
+</p></select>
 
 <p>Vardas:
 <input type="text" name="vardas" size="30" value="" />
@@ -27,18 +47,7 @@
 <input type="text" name="adresas" size="30" value="" />
 </p>
 
-<p> Klasė:
-<select name = "klase">
-<?php
-require_once('../mysqli_connect.php');
-$getclasses = mysqli_query($dbc, "SELECT * FROM klases");
 
-while ($row = mysqli_fetch_array($getclasses))
-{
-	?><option value = "<?php echo $row['klase']; ?>">
-	<?php echo $row['klase'];  ?></option><?php
-}  ?>
-</p></select>
 
 
 <p>1-oji užsienio kalba:
@@ -64,9 +73,14 @@ while ($row = mysqli_fetch_array($getclasses))
 
 
 
-<form action = "http://localhost:1234/mokinfo.php">
-<input type="submit" value = "Pilnas sąrašas"/>
-</form>
+<button onclick="goBack()">Grįžti</button>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+</fieldset>
 
 </body>
 </html>
