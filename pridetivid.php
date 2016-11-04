@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style>
 input, label {display:block;}
 label {font-weight: bold;}
@@ -22,6 +23,7 @@ label {font-weight: bold;}
 <select name = "klase">
 <?php
 require_once('../mysqli_connect.php');
+
 if (strcmp ($_COOKIE["klase"], "admin") == 0)
 {
 $getclasses = mysqli_query($dbc, "SELECT * FROM klases");

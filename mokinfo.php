@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style>
 div#frm *{display:inline}
 table, th, td {
@@ -16,7 +17,7 @@ body
 <body>
 </br>
 <?php 
-
+require_once('../mysqli_connect.php');
 
 $klase = setcookie ("klase", $_GET["klase"], time()+(600), "/");
 
@@ -60,6 +61,13 @@ function goBack() {
 <input type="submit" value = "Rūšiuoti" style = "margin-right:20px";/>
 </select>
 </form>
+<br><br>
+<b>Mokinių skaičius: 
+<?php 
+$mokiniusk = "SELECT * FROM `mokiniai`WHERE klase = ". "'". $_GET["klase"] . "'";
+echo mysqli_num_rows(mysqli_query($dbc, $mokiniusk)); 
+
+?></b>
 
 
 
@@ -76,6 +84,9 @@ function goBack() {
 <form>
 <?php
 require_once('../mysqli_connect.php');
+mysql_query("SET NAMES 'utf8'");
+
+
 
 
 $query = "SELECT vardas, pavarde, asmens_kodas, gimimo_data, adresas, klase, 1uzskalb, 2uzskalb, tikyba, etika FROM mokiniai WHERE klase = '".$_GET["klase"]."' ORDER BY ".$orderby." ASC";

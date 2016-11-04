@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style>
 div#frm *{display:inline}
 table, th, td {
@@ -17,7 +18,7 @@ body
 </br>
 
 
-<?php $klase = $_COOKIE["klase"]; ?>
+<?php $klase = $_GET["klase"]; ?>
 
 <button onclick="goBack()">Grįžti</button>
 

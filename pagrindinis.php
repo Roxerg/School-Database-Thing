@@ -1,12 +1,12 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style>
 #centeredbox {
 	position: absolute;
 	z-index: 15;
 	top: 40%;
 	left: 50%;
-	background: #D0C9CC;
 	margin: -100px 0 0 -150px;
 	box-shadow: 3px 3px 9px;
 	background: linear-gradient(#E3E3E3,#6C6C6C);
